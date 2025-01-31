@@ -76,7 +76,7 @@ class Publisher {
   }
 
   async changelog(data) {
-    const prevPackageJson = await this.getNPMPackage(this.repository.repo);
+    const prevPackageJson = await this.getNPMPackage(data.npm);
     const prevIcons = prevPackageJson.lsicon?.icons || [];
 
     return getChangelog({
@@ -109,7 +109,7 @@ class Publisher {
 
       let version = packageJson.version;
       try {
-        const npmPackage = await this.getNPMPackage(this.repository.repo);
+        const npmPackage = await this.getNPMPackage(data.npm);
         version = npmPackage.version;
       } catch (e) {
         // no action

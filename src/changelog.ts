@@ -47,9 +47,9 @@ export function getChangelog({
   });
 
   const result = [];
-  result.push(getListContent({ title: "🚀 add icons:", icons: addIcons }));
-  result.push(getListContent({ title: "🗑 remove icons:", icons: removeIcons, prefix: '~~', suffix: '~~' }));
-  result.push(getListContent({ title: "🔄 update icons:", icons: updateIcons }));
+  result.push(getListContent({ title: `🚀 add icons(${addIcons.length}):`, icons: addIcons }));
+  result.push(getListContent({ title: `🗑 remove icons(${removeIcons.length}):`, icons: removeIcons, prefix: '~~', suffix: '~~' }));
+  result.push(getListContent({ title: `🔄 update icons(${updateIcons.length}):`, icons: updateIcons }));
 
   return {
     add: addIcons,

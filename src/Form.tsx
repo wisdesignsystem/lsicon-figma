@@ -289,7 +289,7 @@ function Form({ value, onChange }: FormProps) {
         <div className="changelog">
           {!!changelog?.add?.length && (
             <div className="changelog-item">
-              <div className="section-title">🚀 add icons:</div>
+              <div className="section-title">🚀 add icons({changelog.add.length}):</div>
               <div className="list">
                 {changelog.add.map((icon) => {
                   return (
@@ -303,7 +303,7 @@ function Form({ value, onChange }: FormProps) {
           )}
           {!!changelog?.remove?.length && (
             <div className="changelog-item">
-              <div className="section-title">🗑 remove icons:</div>
+              <div className="section-title">🗑 remove icons({changelog.remove.length}):</div>
               <div className="list">
                 {changelog.remove.map((icon) => {
                   return (
@@ -317,7 +317,7 @@ function Form({ value, onChange }: FormProps) {
           )}
           {!!changelog?.update?.length && (
             <div className="changelog-item">
-              <div className="section-title">🔄 update icons:</div>
+              <div className="section-title">🔄 update icons({changelog.update.length}):</div>
               <div className="list">
                 {changelog.update.map((icon) => {
                   return (
