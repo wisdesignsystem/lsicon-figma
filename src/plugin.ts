@@ -1,6 +1,6 @@
 import { getSvgComponents } from "./components"
 
-figma.showUI(__html__, { width: 520, height: 520 });
+figma.showUI(__html__, { width: 520, height: 560 });
 
 figma.ui.onmessage = (action) => {
   const handle = actionsMapper[action.type];
@@ -24,6 +24,14 @@ function getData() {
 }
 
 const actionsMapper = {
+  async setup() {
+    const data = await getData()
+    figma.ui.postMessage({
+      type: 'get',
+      payload: data,
+    });
+  },
+
   set(action) {
     setData(action.payload)
   },
@@ -43,13 +51,3 @@ const actionsMapper = {
     })
   },
 }
-
-async function run() {
-  const data = await getData()
-  figma.ui.postMessage({
-    type: 'get',
-    payload: data,
-  });
-}
-
-run();

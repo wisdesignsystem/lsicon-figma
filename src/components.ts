@@ -21,6 +21,11 @@ interface SVGStyleMeta {
   children: SVGCategoryMeta[];
 }
 
+export interface Lsicon {
+  meta: SVGStyleMeta[];
+  icons: SVGIcon[];
+}
+
 function toCamelCase(name: string) {
   return name
     .toLowerCase()

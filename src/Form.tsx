@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Github from "./Github";
 import Publisher from "./Publisher";
-import { validateGithubMeta } from "./validate";
+import { validateFormData } from "./validate";
 import type { ValidateError } from "./validate";
 
 import "./Form.css";
@@ -9,6 +9,7 @@ import "./Form.css";
 interface Value {
   github: string;
   token: string;
+  npm: string;
   versionMode?: "patch" | "minor" | "major";
 }
 
@@ -31,10 +32,11 @@ function Form({ value, onChange }: FormProps) {
   const [state, setState] = useState(State.INIT);
   const [changelog, setChangelog] = useState(undefined);
   const [errors, setErrors] = useState<ValidateError[]>([]);
+  const [github, setGithub] = useState(undefined);
 
   function validate() {
     const data = getData();
-    const currentErrors = validateGithubMeta(data);
+    const currentErrors = validateFormData(data);
     setErrors(currentErrors || []);
     return !currentErrors.length;
   }
@@ -61,6 +63,7 @@ function Form({ value, onChange }: FormProps) {
 
     const changelog = await publisher.changelog({
       icons: action.payload.icons,
+      npm: data.npm,
       versionMode: data.versionMode,
     });
 
@@ -72,6 +75,7 @@ function Form({ value, onChange }: FormProps) {
       const result = await publisher.publish({
         github: data.github,
         token: data.token,
+        npm: data.npm,
         versionMode: data.versionMode,
         meta: action.payload.meta,
         icons: action.payload.icons,
@@ -83,6 +87,9 @@ function Form({ value, onChange }: FormProps) {
         setState(State.ERROR);
       } else {
         setState(State.COMPLETED);
+        setGithub(
+          `https://github.com/${publisher.repository.owner}/${publisher.repository.repo}/pulls`
+        );
       }
 
       task.current = null;
@@ -120,9 +127,19 @@ function Form({ value, onChange }: FormProps) {
     };
   }, []);
 
-  function handleSubmit(event) {
+  function clear() {
+    task.current = null;
+    setGithub(undefined);
+    setChangelog(undefined);
+    setState(State.INIT);
+  }
+
+  async function handleSubmit(event) {
     event.preventDefault();
-    if (!validate()) {
+
+    clear();
+    const isValid = validate();
+    if (!isValid) {
       setState(State.ERROR);
       return;
     }
@@ -130,9 +147,7 @@ function Form({ value, onChange }: FormProps) {
   }
 
   function handleCancel() {
-    task.current = null;
-    setChangelog(undefined);
-    setState(State.INIT);
+    clear();
   }
 
   function handlePublish() {
@@ -170,6 +185,21 @@ function Form({ value, onChange }: FormProps) {
             name="token"
             placeholder="Please enter the Github personal access token."
             defaultValue={value?.token}
+          />
+        </div>
+      </div>
+      <div className="item">
+        <label className="label" htmlFor="npm">
+          NPM package name?
+        </label>
+        <div className="input">
+          <input
+            className="input__field"
+            id="npm"
+            type="input"
+            name="npm"
+            placeholder="Please enter the npm package name."
+            defaultValue={value?.npm}
           />
         </div>
       </div>
@@ -227,8 +257,16 @@ function Form({ value, onChange }: FormProps) {
         </button>
         {state === State.WAITING && (
           <>
-            <span className="label" style={{ width: "auto", color: changelog.isEmpty ? '#959525' : undefined }}>
-              {changelog.isEmpty ? 'None updates, confirm release a new version?' : 'About to release a new version, please confirm.'}
+            <span
+              className="label"
+              style={{
+                width: "auto",
+                color: changelog.isEmpty ? "#959525" : undefined,
+              }}
+            >
+              {changelog.isEmpty
+                ? "None updates, confirm release a new version?"
+                : "About to release a new version, please confirm."}
             </span>
             <button
               className="button button--tertiary"
@@ -249,42 +287,48 @@ function Form({ value, onChange }: FormProps) {
       </div>
       {state === State.WAITING && !changelog.isEmpty && (
         <div className="changelog">
-          {!!changelog?.add?.length && <div className="changelog-item">
-            <div className="section-title">🚀 add icons:</div>
-            <div className="list">
-              {changelog.add.map((icon) => {
-                return (
-                  <div key={icon.fileName} className="list-item green">
-                    {icon.fileName}
-                  </div>
-                );
-              })}
+          {!!changelog?.add?.length && (
+            <div className="changelog-item">
+              <div className="section-title">🚀 add icons:</div>
+              <div className="list">
+                {changelog.add.map((icon) => {
+                  return (
+                    <div key={icon.fileName} className="list-item green">
+                      {icon.fileName}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-          </div>}
-          {!!changelog?.remove?.length && <div className="changelog-item">
-            <div className="section-title">🗑 remove icons:</div>
-            <div className="list">
-              {changelog.remove.map((icon) => {
-                return (
-                  <div key={icon.fileName} className="list-item red">
-                    {icon.fileName}
-                  </div>
-                );
-              })}
+          )}
+          {!!changelog?.remove?.length && (
+            <div className="changelog-item">
+              <div className="section-title">🗑 remove icons:</div>
+              <div className="list">
+                {changelog.remove.map((icon) => {
+                  return (
+                    <div key={icon.fileName} className="list-item red">
+                      {icon.fileName}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-          </div>}
-          {!!changelog?.update?.length && <div className="changelog-item">
-            <div className="section-title">🔄 update icons:</div>
-            <div className="list">
-              {changelog.update.map((icon) => {
-                return (
-                  <div key={icon.fileName} className="list-item blue">
-                    {icon.fileName}
-                  </div>
-                );
-              })}
+          )}
+          {!!changelog?.update?.length && (
+            <div className="changelog-item">
+              <div className="section-title">🔄 update icons:</div>
+              <div className="list">
+                {changelog.update.map((icon) => {
+                  return (
+                    <div key={icon.fileName} className="list-item blue">
+                      {icon.fileName}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-          </div>}
+          )}
         </div>
       )}
       {state === State.ERROR &&
@@ -302,6 +346,12 @@ function Form({ value, onChange }: FormProps) {
             </div>
           );
         })}
+      {state === State.COMPLETED && (
+        <div className="successful">
+          Publish successful. Please proceed with the next steps on{" "}
+          <a target="__blank" href={github}>GitHub</a>.
+        </div>
+      )}
     </form>
   );
 }

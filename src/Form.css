@@ -24,6 +24,12 @@
   color: var(--red);
 }
 
+.successful {
+  font-size: var(--font-size-xsmall);
+  padding: var(--size-xxsmall) var(--size-xxxsmall) var(--size-xxsmall) var(--size-xxsmall);
+  color: green;
+}
+
 .loading {
   width: 16px;
   height: 16px;

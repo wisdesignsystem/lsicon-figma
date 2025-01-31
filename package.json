@@ -10,6 +10,7 @@
   "dependencies": {
     "@octokit/rest": "21.1.0",
     "figma-plugin-ds": "1.0.1",
+    "merge": "2.1.1",
     "react": "18.3.0",
     "react-dom": "18.3.0"
   },

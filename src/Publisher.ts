@@ -1,10 +1,22 @@
-import { getFiles, getPackageJson, getChangelog } from "./files";
+import merge from "merge";
+
+import { getFiles, getPackageJson } from "./files";
+import { getChangelog } from "./changelog";
 import type { Repository, File } from "./Repository";
 import type { ValidateError } from "./validate";
+import type { Lsicon } from "./components";
 
 interface PublishResult {
   error?: ValidateError[];
   result?: unknown;
+}
+
+interface PackageJSON {
+  name?: string;
+  version?: string;
+  lsicon?: Lsicon;
+  dependencies?: Record<string, string>;
+  devDependencies?: Record<string, string>;
 }
 
 class Publisher {
@@ -15,19 +27,15 @@ class Publisher {
   }
 
   templates(): File[] {
-    return getFiles(this.repository.owner, this.repository.repo);
+    return getFiles({
+      owner: this.repository.owner,
+      repo: this.repository.repo,
+    });
   }
 
-  async getLsiconPackageJson() {
+  async getNPMPackage(name) {
     const response = await fetch(
-      "https://registry.npmjs.org/lsicon/latest"
-    ).then((res) => res.json());
-    return response;
-  }
-
-  async getPackageJson() {
-    const response = await fetch(
-      `https://registry.npmjs.org/${this.repository.repo}/latest`
+      `https://registry.npmjs.org/${name}/latest`
     ).then((res) => res.json());
     return response;
   }
@@ -68,13 +76,13 @@ class Publisher {
   }
 
   async changelog(data) {
-    const prevPackageJson = await this.getPackageJson();
+    const prevPackageJson = await this.getNPMPackage(this.repository.repo);
     const prevIcons = prevPackageJson.lsicon?.icons || [];
 
     return getChangelog({
       icons: data.icons,
       preIcons: prevIcons,
-      repo: this.repository.repo,
+      npm: data.npm,
       versionMode: data.versionMode,
     });
   }
@@ -88,20 +96,33 @@ class Publisher {
 
     try {
       const files: File[] = this.templates();
-      const packageJson = getPackageJson(
-        this.repository.owner,
-        this.repository.repo
-      );
 
-      // @ts-ignore
+      const oldPackageJson = await this.repository.get();
+      const defaultPackageJson = getPackageJson({
+        owner: this.repository.owner,
+        repo: this.repository.repo,
+        npm: data.npm,
+      });
+
+      const packageJson: PackageJSON = {};
+      merge.recursive(packageJson, defaultPackageJson, oldPackageJson);
+
+      let version = packageJson.version;
+      try {
+        const npmPackage = await this.getNPMPackage(this.repository.repo);
+        version = npmPackage.version;
+      } catch (e) {
+        // no action
+      }
+      packageJson.name = data.npm;
+      packageJson.version = version;
+
       packageJson.lsicon = {
         meta: data.meta,
         icons: data.icons,
       };
 
-      const lsicon = await this.getLsiconPackageJson();
-
-      // @ts-ignore
+      const lsicon = await this.getNPMPackage("lsicon");
       packageJson.dependencies.lsicon = lsicon.version;
 
       files.push({

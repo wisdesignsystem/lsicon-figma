@@ -1,4 +1,4 @@
-export function getFiles(owner, repo) {
+export function getFiles({ owner, repo }) {
   return [
     {
       path: ".changeset/README.md",
@@ -81,6 +81,9 @@ jobs:
       path: ".gitignore",
       content: `node_modules
 dist
+**/*.log
+.history
+**/.DS_Store
 `,
     },
     {
@@ -104,12 +107,12 @@ dist
   ];
 }
 
-export function getPackageJson(owner, repo) {
+export function getPackageJson({ owner, repo, npm }) {
   return {
-    name: repo,
+    name: npm,
     version: "0.0.0",
     description: "Icon sets power by lsicon",
-    homepage: `https://www.lsicon.com?package=${repo}`,
+    homepage: `https://www.lsicon.com?package=${npm}`,
     repository: {
       type: "git",
       url: `git+ssh://git@github.com:${owner}/${repo}.git`,
@@ -136,66 +139,6 @@ export function getPackageJson(owner, repo) {
     dependencies: {
       "@changesets/changelog-github": "0.5.0",
       "@changesets/cli": "2.27.5",
-      lsicon: "0.0.1",
     },
-  };
-}
-
-function getListContent({ title, prefix = '', suffix = '', icons }) {
-  if (!icons.length) {
-    return "";
-  }
-
-  return `${title}
-
-${icons.map((icon) => `  - ${prefix}${icon.fileName}${suffix}`).join("\n")}
-`;
-}
-
-export function getChangelog({
-  icons = [],
-  preIcons = [],
-  repo,
-  versionMode,
-}) {
-  const newIconMap = icons.reduce((result, item) => {
-    result[item.fileName] = item;
-    return result;
-  }, {});
-
-  const oldIconMap = preIcons.reduce((result, item) => {
-    result[item.fileName] = item;
-    return result;
-  }, {});
-
-  const addIcons = icons.filter(
-    (item) => !oldIconMap[item.fileName]
-  );
-  const removeIcons = preIcons.filter(
-    (item) => !newIconMap[item.fileName]
-  );
-  const updateIcons = icons.filter((item) => {
-    const oldItem = oldIconMap[item.fileName];
-    return oldItem && oldItem.fileContent !== item.fileContent;
-  });
-
-  const result = [];
-  result.push(getListContent({ title: "🚀 add icons:", icons: addIcons }));
-  result.push(getListContent({ title: "🗑 remove icons:", icons: removeIcons, prefix: '~~', suffix: '~~' }));
-  result.push(getListContent({ title: "🔄 update icons:", icons: updateIcons }));
-
-  return {
-    add: addIcons,
-    remove: removeIcons,
-    update: updateIcons,
-    isEmpty: !addIcons.length && !removeIcons.length && !updateIcons.length,
-    fileContent: `---
-"${repo}": ${versionMode}
----
-
-Release new icon version
-
-${result.filter(Boolean).join("\n")}
-`,
   };
 }

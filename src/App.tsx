@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 
 import logo from "./logo.svg";
 import Form from "./Form";
@@ -7,6 +7,7 @@ import "./App.css";
 function App() {
   const [github, setGithub] = useState("");
   const [token, setToken] = useState("");
+  const [npm, setNpm] = useState("");
   const [ready, setReady] = useState(false);
 
   function get(action) {
@@ -18,6 +19,7 @@ function App() {
 
     setGithub(action.payload.github);
     setToken(action.payload.token);
+    setNpm(action.payload.npm);
   }
 
   function handleChange(value) {
@@ -28,7 +30,7 @@ function App() {
       {
         pluginMessage: {
           type: "set",
-          payload: { github: value?.github, token: value?.token },
+          payload: { github: value?.github, token: value?.token, npm: value?.npm },
         },
       },
       "*"
@@ -36,7 +38,7 @@ function App() {
   }
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-  useEffect(() => {
+  useLayoutEffect(() => {
     const actionsMapper = {
       get,
     };
@@ -51,6 +53,15 @@ function App() {
       handle(action);
     }
 
+    parent.postMessage(
+      {
+        pluginMessage: {
+          type: "setup",
+        },
+      },
+      "*"
+    );
+
     window.addEventListener("message", handleAction);
     return () => {
       window.removeEventListener("message", handleAction);
@@ -62,9 +73,9 @@ function App() {
       <img className="logo" alt="Lsicon" src={logo} />
       <p className="description">
         Manage your icons through Figma, we will convert them into React Components and automate the publishing of icons to NPM for development use. For more detailed information.
-        <a href="https://github.com/wisdesignsystem/lsicon-cli/README.md">See More</a>
+        <a href="https://github.com/wisdesignsystem/lsicon-figma"> see more </a>
       </p>
-      {ready && <Form value={{ github, token }} onChange={handleChange} />}
+      {ready && <Form value={{ github, token, npm }} onChange={handleChange} />}
     </div>
   );
 }

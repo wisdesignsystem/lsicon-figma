@@ -9,13 +9,13 @@ function isGithubURL(url: string) {
   );
 }
 
-// function validateName(name: string) {
-//   if (/^[a-zA-Z][a-zA-Z0-9-]*$/.test(name)) {
-//     return "Icon names can only consist of alphanumeric characters and hyphens, and the first character cannot be a number.";
-//   }
-// }
+function validateNpmPackage(name) {
+  return /^(?:@[a-z0-9-*~][a-z0-9-*._~]*\/)?[a-z0-9-*~][a-z0-9-*._~]*$/.test(
+    name
+  );
+}
 
-export function validateGithubMeta({ github, token }) {
+export function validateFormData({ github, token, npm }) {
   const errors: ValidateError[] = [];
 
   if (!github) {
@@ -31,6 +31,17 @@ export function validateGithubMeta({ github, token }) {
   if (!token) {
     errors.push({
       message: "Github personal access token is required.",
+    });
+  }
+
+  if (!npm) {
+    errors.push({
+      message: "NPM package name is required.",
+    });
+  } else if (!validateNpmPackage(npm)) {
+    errors.push({
+      message:
+        "NPM package name can only start with '@' or a letter, and it can only contain letters, numbers, underscores, and hyphens.",
     });
   }
 
