@@ -1,0 +1,17 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  padding: 24px 0;
+}
+
+.description {
+  word-break: break-word;
+  padding: 0 32px;
+  font-size: 12px;
+  line-height: 16px;
+  color: #666
+}

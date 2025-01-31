@@ -1,0 +1,21 @@
+{
+  "name": "Easy to manage and publish icons",
+  "id": "1463361432907984033",
+  "api": "1.0.0",
+  "main": "dist/code.js",
+  "ui": "dist/ui.html",
+  "capabilities": [],
+  "enableProposedApi": false,
+  "documentAccess": "dynamic-page",
+  "editorType": [
+    "figma"
+  ],
+  "networkAccess": {
+    "allowedDomains": [
+      "https://api.github.com",
+      "https://raw.githubusercontent.com",
+      "https://registry.npmjs.org",
+      "https://rsms.me"
+    ]
+  }
+}
