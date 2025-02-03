@@ -63,6 +63,23 @@
   color: red;
 }
 
+.label {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.token {
+  padding: 0 32px 0 0;
+  box-sizing: border-box;
+}
+
+.input .password-icon.icon {
+  cursor: pointer;
+  left: unset;
+  right: 0;
+}
+
 @keyframes circle {
   0% {
     transform: rotate(0);

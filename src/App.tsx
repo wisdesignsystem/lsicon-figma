@@ -72,8 +72,8 @@ function App() {
     <div className="app">
       <img className="logo" alt="Lsicon" src={logo} />
       <p className="description">
-        Manage your icons through Figma, we will convert them into React Components and automate the publishing of icons to NPM for development use. For more detailed information.
-        <a href="https://github.com/wisdesignsystem/lsicon-figma"> see more </a>
+        Manage your icons through figma, we will convert them into react components and automate the publishing of icons to NPM for development use. View more detailed information please{" "}
+        <a target="__blank" href="https://github.com/wisdesignsystem/lsicon-figma">clicked me</a>.
       </p>
       {ready && <Form value={{ github, token, npm }} onChange={handleChange} />}
     </div>

@@ -33,6 +33,7 @@ function Form({ value, onChange }: FormProps) {
   const [changelog, setChangelog] = useState(undefined);
   const [errors, setErrors] = useState<ValidateError[]>([]);
   const [github, setGithub] = useState(undefined);
+  const [visible, setVisible] = useState(false);
 
   function validate() {
     const data = getData();
@@ -160,7 +161,7 @@ function Form({ value, onChange }: FormProps) {
     <form className="form" ref={form} onSubmit={handleSubmit}>
       <div className="item">
         <label className="label" htmlFor="github">
-          Github repository URL?
+          Github Repository URL?
         </label>
         <div className="input">
           <input
@@ -175,22 +176,27 @@ function Form({ value, onChange }: FormProps) {
       </div>
       <div className="item">
         <label className="label" htmlFor="token">
-          Github personal access token?
+          Github Personal Access Token?
         </label>
-        <div className="input">
+        <div className="token input">
           <input
             className="input__field"
             id="token"
-            type="input"
+            type={visible ? "input" : "password"}
             name="token"
             placeholder="Please enter the Github personal access token."
             defaultValue={value?.token}
+          />
+          <div
+            className={ visible ? "password-icon icon icon--visible" : "password-icon icon icon--hidden"}
+            onKeyDown={() => {}}
+            onClick={() => setVisible(!visible)}
           />
         </div>
       </div>
       <div className="item">
         <label className="label" htmlFor="npm">
-          NPM package name?
+          NPM Package Name?
         </label>
         <div className="input">
           <input
@@ -205,7 +211,7 @@ function Form({ value, onChange }: FormProps) {
       </div>
       <div className="item">
         <label className="label" htmlFor="versionMode">
-          What kind of version?
+          What Kind of Version?
         </label>
         <div className="radio-group">
           <div className="radio">
@@ -289,7 +295,9 @@ function Form({ value, onChange }: FormProps) {
         <div className="changelog">
           {!!changelog?.add?.length && (
             <div className="changelog-item">
-              <div className="section-title">🚀 add icons({changelog.add.length}):</div>
+              <div className="section-title">
+                🚀 add icons({changelog.add.length}):
+              </div>
               <div className="list">
                 {changelog.add.map((icon) => {
                   return (
@@ -303,7 +311,9 @@ function Form({ value, onChange }: FormProps) {
           )}
           {!!changelog?.remove?.length && (
             <div className="changelog-item">
-              <div className="section-title">🗑 remove icons({changelog.remove.length}):</div>
+              <div className="section-title">
+                🗑 remove icons({changelog.remove.length}):
+              </div>
               <div className="list">
                 {changelog.remove.map((icon) => {
                   return (
@@ -317,7 +327,9 @@ function Form({ value, onChange }: FormProps) {
           )}
           {!!changelog?.update?.length && (
             <div className="changelog-item">
-              <div className="section-title">🔄 update icons({changelog.update.length}):</div>
+              <div className="section-title">
+                🔄 update icons({changelog.update.length}):
+              </div>
               <div className="list">
                 {changelog.update.map((icon) => {
                   return (
@@ -348,8 +360,11 @@ function Form({ value, onChange }: FormProps) {
         })}
       {state === State.COMPLETED && (
         <div className="successful">
-          Publish successful. Please proceed with the next steps on{" "}
-          <a target="__blank" href={github}>GitHub</a>.
+          The release was successful, and we have automatically created the subsequent GitHub Action automation process for you. After a short while, you will see a Pull Request for the release. Please check it out.
+          <a target="__blank" href={github}>
+            GitHub
+          </a>
+          .
         </div>
       )}
     </form>
