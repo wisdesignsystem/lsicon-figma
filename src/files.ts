@@ -128,7 +128,7 @@ export function getPackageJson({ owner, repo, npm }) {
     scripts: {
       changelog: "pnpm changeset",
       version: "pnpm changeset version",
-      release: "pnpm changeset tag && git push --follow-tags && pnpm publish",
+      release: "pnpm changeset tag && git push --follow-tags && pnpm publish --no-git-checks",
       clean: "rm -rf node_modules",
       build: "lsicon build",
     },

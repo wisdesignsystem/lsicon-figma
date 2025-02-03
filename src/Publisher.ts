@@ -105,7 +105,7 @@ class Publisher {
       });
 
       const packageJson: PackageJSON = {};
-      merge.recursive(packageJson, defaultPackageJson, oldPackageJson);
+      merge.recursive(packageJson, oldPackageJson, defaultPackageJson);
 
       let version = packageJson.version;
       try {

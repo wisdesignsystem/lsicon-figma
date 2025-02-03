@@ -34,11 +34,20 @@ function toCamelCase(name: string) {
 }
 
 function getSvgCategory(componentSet: ComponentSetNode) {
-  if (componentSet.parent?.type !== "FRAME") {
-    return "common";
+  let currentNode = componentSet.parent;
+  while (currentNode) {
+    if (currentNode.type === "FRAME") {
+      break;
+    }
+
+    currentNode = currentNode.parent;
   }
 
-  return componentSet.parent.name;
+  if (currentNode) {
+    return currentNode.name;
+  }
+
+  return "common";
 }
 
 function getSvgStyle(component: ComponentNode) {

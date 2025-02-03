@@ -62,6 +62,14 @@ function Form({ value, onChange }: FormProps) {
     const data = getData();
     const publisher = new Publisher(new Github(data.github, data.token));
 
+    if (!action.payload.icons.length) {
+      setErrors([{
+        message: 'Icons not found. Please create icons first.',
+      }]);
+      setState(State.ERROR);
+      return;
+    }
+
     const changelog = await publisher.changelog({
       icons: action.payload.icons,
       npm: data.npm,
@@ -89,7 +97,7 @@ function Form({ value, onChange }: FormProps) {
       } else {
         setState(State.COMPLETED);
         setGithub(
-          `https://github.com/${publisher.repository.owner}/${publisher.repository.repo}/pulls`
+          `https://github.com/${publisher.repository.owner}/${publisher.repository.repo}`
         );
       }
 
@@ -271,8 +279,8 @@ function Form({ value, onChange }: FormProps) {
               }}
             >
               {changelog.isEmpty
-                ? "None updates, confirm release a new version?"
-                : "About to release a new version, please confirm."}
+                ? "Nothing will be updated, release new version?"
+                : "New version about to be released, please confirm."}
             </span>
             <button
               className="button button--tertiary"
@@ -360,11 +368,15 @@ function Form({ value, onChange }: FormProps) {
         })}
       {state === State.COMPLETED && (
         <div className="successful">
-          The release was successful, and we have automatically created the subsequent GitHub Action automation process for you. After a short while, you will see a Pull Request for the release. Please check it out.
-          <a target="__blank" href={github}>
-            GitHub
+          🎉🎉🎉 Publish successfully! we created a{" "}
+          <a target="__blank" href={`${github}/actions`}>
+            github action
           </a>
-          .
+          {" "}for you, once it completes, you will see a{" "}
+           <a target="__blank" href={`${github}/pulls`}>
+            pull request
+          </a>
+          {" "}for the release, merge it and wait for a few minutes and a new icon library version will be published.
         </div>
       )}
     </form>
