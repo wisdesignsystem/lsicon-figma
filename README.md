@@ -1,78 +1,63 @@
 <p align="center">
   <a href="https://lsicon.com" target="_blank">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://img.seergb.com/lsicon-logo-white.svg">
-      <source media="(prefers-color-scheme: light)" srcset="https://img.seergb.com/lsicon-logo-black.svg">
       <img alt="lsicon" width="216" height="56" style="max-width: 100%" src="https://img.seergb.com/lsicon-logo-black.svg">
     </picture>
   </a>
 </p>
 
-# Lsicon Figma Plugin
+# Lsicon Icon Tool
 
-Lsicon Figma 图标管理工具是一个致力于帮助设计师通过 [Figma](https://figma.com) 工具快捷管理图标的插件，它将自动完成从 figma 中的导出svg资源，传输到 [Github](https://github.com) 转换为 React 组件并发布到 [npm](https://npmjs.com)，供研发快速使用，整个过程无需了解研发细节。
+Lsicon Icon Management Tool is a plugin dedicated to helping designers manage icons in Figma more conveniently. It automatically exports Figma SVG assets, transfers them to GitHub, and converts them into React icon components through a build tool. These components are then published to [npm](https://npmjs.com), enabling developers to quickly integrate them into projects. The entire workflow is efficient and minimizes your manual involvement.
 
-## 它是如何工作的？
+## How It Works
 
-<img alt="lsicon" style="width: 100%" src="/images/how-to-work.jpg">
+![how-to-work](https://github.com/user-attachments/assets/b5c1b110-ac2e-4b70-9295-612c9d673aa0)
 
-整个流程很长，但绝大多数流程都是自动完成的，你需要做的只是如下三个步骤：
+Although the process seems long, most tasks are automated. You only need minimal input and do not have to worry about the details.
 
-1. 按照图标规范在figma中管理你的图标。
-2. 运行 Lsicon Figma 插件，点击发布，等待发布完成。
-3. 前往 Github 仓库确认发布信息并合并 Release 的 Pull Request即可自动完成后续的发布。
+## Environment Setup
 
-## 环境准备
+Before using the plugin, ensure you have the following prerequisites:
 
-在使用这个插件前，你需要确保你已经具备如下环境，如果没有请先创建
+1. A GitHub account (see [Github Signup](https://github.com/signup)).
+2. An npm account (see [NPM Signup](https://www.npmjs.com/signup)).
 
-1. 你需要准备一个github的账号，请移步这里 [Github](https://github.com/signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F&source=header-home)
-2. 你需要准备一个npm的账号，请移步这里 [NPM](https://www.npmjs.com/signup)
-3. 了解figma的使用，并创建一个专门用于管理图标的figma页面。
+## Usage Steps
 
-## 使用步骤
+If this is your first time, follow the tutorial to understand the plugin in detail. If you are already familiar with it, feel free to jump to any section as needed.
 
-如果你是第一次使用本插件，你需要先初始化一个 Github 仓库。
+#### Create a GitHub Repository
 
-### 创建Github仓库
+You need a GitHub repository to host your icon assets. If you are unsure about the creation process, refer to this brief video:
 
-由于该工具会通过 Github 进行资源托管，我们需要你在首次使用该插件时创建一个新的仓库，创建步骤请参照如下规则：
+https://github.com/user-attachments/assets/00253f35-6f58-4f75-9ccb-1af858173491
 
-#### step1
+#### Create a GitHub Personal Access Token
 
-<img alt="github" style="width: 100%" src="/images/github-step1.jpg">
+While using the plugin, actions such as committing, creating PRs, and merging PRs require specific permissions. We request minimal privileges for these operations. You must create a dedicated GitHub personal access token. Since GitHub does not allow re-checking the token, copy and save it securely. Refer to this video for details:
 
-#### step2
+https://github.com/user-attachments/assets/4317f802-8477-453d-8f2d-d3427f766780
 
-<img alt="github" style="width: 100%" src="/images/github-step2.jpg">
+#### Create an NPM Token
 
-⚠️注意：
-1. 仓库的名称请使用字母开头，且仅能包含字母、数字、下划线、中横线。
-2. 仓库的名称同时会作为 NPM 包名称进行发布，请确保你使用的名称没有被其他人占用，否则将发布失败。
+Because icons are eventually published to [npm](https://npmjs.com), you need an npm token for publication. After creating it, be sure to copy and store it securely. If you need help, watch this brief video:
 
-#### step3
+https://github.com/user-attachments/assets/9f07f405-5529-44f0-ad59-879abf80c5f2
 
-由于发布到 NPM 包需要您的授权，因此我们采用 Github Action 读取 Token 的形式，你需要在 Github 仓库中提供 NPM Token.
+#### Create a GitHub Secret
 
-首先登陆 [NPM](https://npmjs.com) 通过如图所示创建 NPM 发布包所需的 Token
+To keep your account secure, we use GitHub repository secrets to manage your npm token. This method is safe. For guidance, watch the short video below:
 
-<img alt="github" style="width: 100%" src="/images/npm-step1.jpg">
-<img alt="github" style="width: 100%" src="/images/npm-step2.jpg">
-<img alt="github" style="width: 100%" src="/images/npm-step3.jpg">
-<img alt="github" style="width: 100%" src="/images/npm-step4.jpg">
+> [!IMPORTANT]
+> Use the name `NPM_TOKEN` as specified without modifying it.
 
-此时你已经获取到了 NPM Token, 请将它输入到 Github secret 中，这是安全的密钥管理方式。
+https://github.com/user-attachments/assets/d8da6b5a-b5eb-4ed2-bc8c-17e5312d6950
 
-<img alt="github" style="width: 100%" src="/images/github-token-step1.jpg">
-<img alt="github" style="width: 100%" src="/images/github-token-step2.jpg">
+#### Manage Icons in Figma
 
+TODO
 
-### Figma中管理图标
+#### Use the Plugin in Figma
 
-图标的管理并不是随心所欲的，为了方便结合[lsicon官网](https://lsicon.com)对你的图标进行展示和查找，我们制定了一套图标管理规范，你可以对你的图标进行分类管理。
-
-待补充
-
-### 发布图标
-
-当你完成了所有的准备工作，并且已经创建好了你的图标，你希望发布一个新版本时，请前往 Figma 图标所在页面通过插件列表搜索 lsicon点击发布即可，这个过程
+When your icons are ready for release and developers need them, we will show you how to use the plugin:

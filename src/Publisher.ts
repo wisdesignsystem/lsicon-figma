@@ -36,7 +36,13 @@ class Publisher {
   async getNPMPackage(name) {
     const response = await fetch(
       `https://registry.npmjs.org/${name}/latest`
-    ).then((res) => res.json());
+    ).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return
+    });
+
     return response;
   }
 
@@ -77,7 +83,7 @@ class Publisher {
 
   async changelog(data) {
     const prevPackageJson = await this.getNPMPackage(data.npm);
-    const prevIcons = prevPackageJson.lsicon?.icons || [];
+    const prevIcons = prevPackageJson?.lsicon?.icons || [];
 
     return getChangelog({
       icons: data.icons,
@@ -110,7 +116,9 @@ class Publisher {
       let version = packageJson.version;
       try {
         const npmPackage = await this.getNPMPackage(data.npm);
-        version = npmPackage.version;
+        if (npmPackage) {
+          version = npmPackage.version;
+        }
       } catch (e) {
         // no action
       }
