@@ -107,6 +107,49 @@ dist
   ];
 }
 
+export function getREADME({ npm, icons }) {
+  const IconFileName = icons[0]?.fileName
+
+  return `# ${npm}
+
+A React icon component library powered by [Lsicon](https://github.com/wisdesignsystem/lsicon-figma).
+
+## Preview
+
+[https://lsicon.com?package=${npm}](https://lsicon.com?package=${npm})
+
+## Installation
+
+### npm
+
+\`\`\`bash
+npm i ${npm}
+\`\`\`
+
+### yarn
+
+\`\`\`bash
+yarn add ${npm}
+\`\`\`
+
+### pnpm
+
+\`\`\`bash
+pnpm i ${npm}
+\`\`\`
+
+## Usage
+
+\`\`\`tsx
+import { ${IconFileName} } from "${npm}";
+
+function App() {
+  return <${IconFileName} />;
+}
+\`\`\`
+`
+}
+
 export function getPackageJson({ owner, repo, npm }) {
   return {
     name: npm,

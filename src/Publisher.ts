@@ -1,6 +1,6 @@
 import merge from "merge";
 
-import { getFiles, getPackageJson } from "./files";
+import { getFiles, getPackageJson, getREADME } from "./files";
 import { getChangelog } from "./changelog";
 import type { Repository, File } from "./Repository";
 import type { ValidateError } from "./validate";
@@ -137,6 +137,13 @@ class Publisher {
         path: "package.json",
         content: JSON.stringify(packageJson, null, 2),
       });
+
+      if (!oldPackageJson?.lsicon) {
+        files.push({
+          path: "README.md",
+          content: getREADME({ npm: data.npm, icons: data.icons }),
+        })
+      }
 
       files.push({
         path: ".changeset/version-new-changelog.md",
