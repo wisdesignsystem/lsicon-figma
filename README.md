@@ -61,3 +61,5 @@ TODO
 #### Use the Plugin in Figma
 
 When your icons are ready for release and developers need them, we will show you how to use the plugin:
+
+https://github.com/user-attachments/assets/757f7b7e-cf0f-452a-8c39-0e6fbe9904da
