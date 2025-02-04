@@ -116,7 +116,7 @@ A React icon component library powered by [Lsicon](https://github.com/wisdesigns
 
 ## Preview
 
-[https://lsicon.com?package=${npm}](https://lsicon.com?package=${npm})
+[https://lsicon.com/${npm}](https://lsicon.com/${npm})
 
 ## Installation
 
@@ -155,7 +155,7 @@ export function getPackageJson({ owner, repo, npm }) {
     name: npm,
     version: "0.0.0",
     description: "Icon sets power by lsicon",
-    homepage: `https://www.lsicon.com?package=${npm}`,
+    homepage: `https://www.lsicon.com/${npm}`,
     repository: {
       type: "git",
       url: `git+ssh://git@github.com:${owner}/${repo}.git`,
