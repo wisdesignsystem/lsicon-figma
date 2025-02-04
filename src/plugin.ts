@@ -17,10 +17,16 @@ function setData(value) {
 }
 
 function getData() {
-  return figma.clientStorage.getAsync(DATA_KEY)
+  try {
+    return figma.clientStorage.getAsync(DATA_KEY)
     .then((data) => {
-      return JSON.parse(data)
+      if (data) {
+        return JSON.parse(data)
+      }
     })
+  } catch (e) {
+    // no action
+  }
 }
 
 const actionsMapper = {
