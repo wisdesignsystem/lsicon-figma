@@ -25,4 +25,107 @@
   height: 56px;
   background: white;
   z-index: 2000;
+  border-radius: 8px;
+}
+
+#triangle {
+  animation: triangle ease-out 0.68s infinite alternate;
+}
+
+#triangle-line {
+  animation: triangle-line ease-out 0.68s infinite alternate;
+}
+
+#rect {
+  animation: rect ease-out 0.68s infinite alternate;
+  animation-delay: 0.17s;
+}
+
+#rect-line {
+  animation: rect-line ease-out 0.68s infinite alternate;
+  animation-delay: 0.17s;
+}
+
+@keyframes triangle {
+  0% {
+    transform: translateX(0);
+  }
+  18% {
+    transform: translateX(0);
+  }
+  36% {
+    transform: translateX(-23px);
+  }
+  64% {
+    transform: translateX(-23px);
+  }
+  82% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes rect {
+  0% {
+    transform: translateX(0);
+  }
+  18% {
+    transform: translateX(0);
+  }
+  36% {
+    transform: translateX(24px);
+  }
+  64% {
+    transform: translateX(24px);
+  }
+  82% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes triangle-line {
+  0% {
+    transform: translateX(0);
+  }
+  18% {
+    transform: translateX(0);
+  }
+  36% {
+    transform: translateX(18px);
+  }
+  64% {
+    transform: translateX(18px);
+  }
+  82% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes rect-line {
+  0% {
+    transform: translateX(0);
+  }
+  18% {
+    transform: translateX(0);
+  }
+  36% {
+    transform: translateX(-18px);
+  }
+  64% {
+    transform: translateX(-18px);
+  }
+  82% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }

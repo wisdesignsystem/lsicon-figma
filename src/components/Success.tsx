@@ -31,7 +31,7 @@ function Success({
               <li>Merge the PR</li>
               <li>Wait a few minutes</li>
             </ol>
-            Your new icon library version will be automatically published. <a target="__blank" href={preview}>Preview</a>
+            Your new icon library version will be automatically published.View your NPM icons on LSIcon: <a target="__blank" href={preview}>{preview?.replace('https://', '')}</a>
           </div>
           <Actions>
             <button
