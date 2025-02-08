@@ -1,7 +1,6 @@
 import React, { useLayoutEffect, useState } from "react";
 
-import logo from "./logo.svg";
-import Form from "./Form";
+import Form from "./components/Form";
 import "./App.css";
 
 function App() {
@@ -69,11 +68,9 @@ function App() {
   }, []);
 
   return (
-    <div className="app">
-      <img className="logo" alt="Lsicon" src={logo} />
+    <div className="application">
       <p className="description">
-        Manage your icons through figma, we will convert them into react components and automate the publishing of icons to NPM for development use. View more detailed information please{" "}
-        <a target="__blank" href="https://github.com/wisdesignsystem/lsicon-figma">clicked me</a>.
+        Turn Figma icons into React components with automated NPM publishing. <a target="__blank" href="https://github.com/wisdesignsystem/lsicon-figma">Learn more</a>
       </p>
       {ready && <Form value={{ github, token, npm }} onChange={handleChange} />}
     </div>

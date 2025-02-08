@@ -1,0 +1,23 @@
+.changelog {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.10);
+  max-height: 120px;
+  overflow: auto;
+}
+
+.changelog__label {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+}
+
+.changelog__ul {
+  margin: 8px 0 0 0;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+}
