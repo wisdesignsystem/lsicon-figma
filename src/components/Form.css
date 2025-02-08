@@ -1,0 +1,81 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px 0;
+}
+
+*:focus-visible {
+  outline-color: #18A0FB;
+}
+
+.label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 32px;
+  font-weight: 600;
+}
+
+.label,
+.value {
+  color: rgba(0, 0, 0, 0.80);
+  font-size: 12px;
+  font-style: normal;
+  line-height: 16px;
+}
+
+.value {
+  position: relative;
+}
+
+.eye {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 16px;
+}
+
+.password__field,
+.input__field {
+  height: 32px;
+  box-sizing: border-box;
+  border: none;
+  margin: 0;
+  width: 100%;
+  border-radius: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.10);
+  background: #fff;
+}
+
+.input__field {
+  padding: 8px;
+}
+
+.password__field {
+  padding: 8px 32px 8px 8px;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 32px;
+  gap: 16px;
+}
+
+.radio {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.radio__button {
+  margin: 0 16px 0 0;
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+}
+
+.radio__button:checked {
+  accent-color: #000;
+}

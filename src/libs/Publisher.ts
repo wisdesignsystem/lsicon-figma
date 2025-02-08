@@ -41,6 +41,8 @@ class Publisher {
         return res.json();
       }
       return
+    }).catch(() => {
+      // no action
     });
 
     return response;
@@ -131,7 +133,11 @@ class Publisher {
       };
 
       const lsicon = await this.getNPMPackage("lsicon");
-      packageJson.dependencies.lsicon = lsicon.version;
+      if (lsicon) {
+        packageJson.dependencies.lsicon = lsicon.version;
+      } else {
+        packageJson.devDependencies.lsicon = "^0.0.1";
+      }
 
       files.push({
         path: "package.json",

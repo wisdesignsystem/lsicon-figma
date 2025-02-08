@@ -1,0 +1,31 @@
+.errors {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.10);
+  background: rgba(242, 72, 34, 0.10);
+  color: #F24822;
+}
+
+.errors__title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 16px;
+  gap: 4px;
+}
+
+.errors__label {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+}
+
+.errors__ul {
+  margin: 8px 0 0 0;
+  padding-inline-start: 16px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+}
