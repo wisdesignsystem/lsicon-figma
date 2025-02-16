@@ -1,65 +1,90 @@
+# Lsicon Icon Manage and Release
+
 <p align="center">
   <a href="https://lsicon.com" target="_blank">
     <picture>
-      <img alt="lsicon" width="216" height="56" style="max-width: 100%" src="https://img.seergb.com/lsicon-logo-black.svg">
+      <img alt="Lsicon Logo" width="216" height="56" style="max-width: 100%" src="https://img.seergb.com/lsicon-logo-black.svg">
     </picture>
   </a>
 </p>
 
-# Lsicon Icon Tool
+![license](https://img.shields.io/github/license/wisdesignsystem/lsicon-figma)
 
-Lsicon Icon Management Tool is a plugin dedicated to helping designers manage icons in Figma more conveniently. It automatically exports Figma SVG assets, transfers them to GitHub, and converts them into React icon components through a build tool. These components are then published to [npm](https://npmjs.com), enabling developers to quickly integrate them into projects. The entire workflow is efficient and minimizes your manual involvement.
+-------
+
+**[Lsicon / Icon Manage and Release](https://www.figma.com/community/plugin/1463361432907984033)** is a Figma plugin designed for designers to streamline the icon management process. It allows you to publish and update icons without relying on other platforms:
+
+- Export SVGs from Figma → GitHub
+- Convert to React components
+- Publish to npm
+- Integrate seamlessly into projects
+- Preview your NPM resources via lsicon.com
+
+Developers can easily use these icon components in their projects, with the entire process being highly efficient and requiring minimal manual intervention.
 
 ## How It Works
 
-![how-to-work](https://github.com/user-attachments/assets/b5c1b110-ac2e-4b70-9295-612c9d673aa0)
+![Workflow](https://github.com/user-attachments/assets/b5c1b110-ac2e-4b70-9295-612c9d673aa0)
 
-Although the process seems long, most tasks are automated. You only need minimal input and do not have to worry about the details.
+Although the process may seem complex, most operations are automated by the plugin. You only need to perform light configuration without delving into technical details.
 
-## Environment Setup
+## Prerequisites
 
-Before using the plugin, ensure you have the following prerequisites:
+Before using the plugin, ensure you have completed the following preparations:
 
-1. A GitHub account (see [Github Signup](https://github.com/signup)).
-2. An npm account (see [NPM Signup](https://www.npmjs.com/signup)).
+1. **GitHub Account** - If you don't have a GitHub account, please [sign up](https://github.com/signup).
+2. **NPM Account** - If you don't have an npm account, please [sign up](https://www.npmjs.com/signup).
 
-## Usage Steps
+## Configuration Tutorial
 
-If this is your first time, follow the tutorial to understand the plugin in detail. If you are already familiar with it, feel free to jump to any section as needed.
+If you are using the plugin for the first time, it is recommended to read the tutorial to familiarize yourself with the process. If you are already familiar, you can skip to the relevant section.
 
-#### Create a GitHub Repository
+- Figma playground file: [Figma Link](https://www.figma.com/design/oCToJkCk9aOZrDXuX9VAwE/Lsicon-Demo?node-id=0-1&p=f&t=9r9El2yjjm2FzEfS-0)
+- Video Tutorial: [Youtube Link](https://youtu.be/5cCWFbqdTkg)
 
-You need a GitHub repository to host your icon assets. If you are unsure about the creation process, refer to this brief video:
+### 1. Create a GitHub Repository
 
-https://github.com/user-attachments/assets/00253f35-6f58-4f75-9ccb-1af858173491
+You need to create a repository on GitHub to host the icon resources.
+- Create New - [Link](https://github.com/new)
 
-#### Create a GitHub Personal Access Token
+### 2. Create a GitHub Personal Access Token
 
-While using the plugin, actions such as committing, creating PRs, and merging PRs require specific permissions. We request minimal privileges for these operations. You must create a dedicated GitHub personal access token. Since GitHub does not allow re-checking the token, copy and save it securely. Refer to this video for details:
+When using the plugin, operations such as submitting, creating PRs, and merging PRs require appropriate permissions. You need to create a dedicated GitHub Personal Access Token.
+- Personal access tokens - [Link](https://github.com/settings/personal-access-tokens)
+- Enable necessary permissions:
+    - *Action: Read and write*
+    - *Contents: Read and write*
+    - *Metadata: Read-only*
+    - *Pull requests: Read and write*
+    - *Workflows: Read and write*
 
-https://github.com/user-attachments/assets/4317f802-8477-453d-8f2d-d3427f766780
+### 3. Create an NPM Token
 
-#### Create an NPM Token
+Since the icons will eventually be published to NPM, you need to obtain and save an NPM token.
+- [NPM](https://npmjs.com) - Link https://www.npmjs.com/settings/ `yourname` /tokens/granular-access-tokens/new
 
-Because icons are eventually published to [npm](https://npmjs.com), you need an npm token for publication. After creating it, be sure to copy and store it securely. If you need help, watch this brief video:
+### 4. Create an Actions Secret Token
 
-https://github.com/user-attachments/assets/9f07f405-5529-44f0-ad59-879abf80c5f2
-
-#### Create a GitHub Secret
-
-To keep your account secure, we use GitHub repository secrets to manage your npm token. This method is safe. For guidance, watch the short video below:
+To ensure account security, we use GitHub repository secrets to manage the npm token, which is a secure management method. For details, refer to the video below:
 
 > [!IMPORTANT]
-> Use the name `NPM_TOKEN` as specified without modifying it.
+> Be sure to use the name `NPM_TOKEN` and do not modify it.
 
-https://github.com/user-attachments/assets/d8da6b5a-b5eb-4ed2-bc8c-17e5312d6950
+- Create actions secret - Link（https://github.com/ `yourname` / `your-repository` /settings/secrets/actions/new）
 
-#### Manage Icons in Figma
+### 5. Manage Icons in Figma
 
-TODO
+You can refer to our [Lsicon Figma Icon Library](https://www.figma.com/community/file/1411589715699221517) structure to design your Figma file. Alternatively, you can open the plugin in Figma and select the Playground file to view an example.
 
-#### Use the Plugin in Figma
+Please ensure that your Figma file meets the following requirements; otherwise, resource synchronization may fail.
+- Icons must use Create component set, and the variant name must be named `style`.
+- If you have multiple styles, add multiple types under the current component's style, e.g., (style=outline, style=filled, style=colorful...).
+- If you have multiple categories, place the icons inside a Frame, and the Frame name will be displayed as the category name.
 
-When your icons are ready for release and developers need them, we will show you how to use the plugin:
+### 6. Use the Plugin in Figma
 
-https://github.com/user-attachments/assets/757f7b7e-cf0f-452a-8c39-0e6fbe9904da
+🎉 Congratulations, you have completed all configurations. Now, open the **[Lsicon / Icon Manage and Release](https://www.figma.com/community/plugin/1463361432907984033)** plugin in Figma to start using it.
+1. GitHub Repository URL: The repository address where the icons will be stored, typically https://github.com/ `name`/ `your-repository`.
+2. GitHub Personal Access Token: Enter the Personal Access Token created in the second step.
+3. NPM Package Name: Enter your NPM package name or a new package name you wish to create.
+4. What Kind of Version: Choose the version you want to publish, referring to [Semantic Versioning (SemVer)](https://semver.org/).
