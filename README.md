@@ -8,7 +8,10 @@
   </a>
 </p>
 
-![license](https://img.shields.io/github/license/wisdesignsystem/lsicon-figma)
+<p align="center">
+  <img alt="GitHub License" src="https://img.shields.io/github/license/wisdesignsystem/lsicon-figma">
+  <a href="https://deepwiki.com/wisdesignsystem/lsicon-figma"><img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki"></a>
+</p>
 
 -------
 
