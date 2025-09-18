@@ -151,11 +151,13 @@ function App() {
 }
 
 export function getPackageJson({ owner, repo, npm }) {
+  const homepage = npm === "@wisdesign/lsicon" ? "https://www.lsicon.com" : `https://www.lsicon.com/${npm}`;
+
   return {
     name: npm,
     version: "0.0.0",
     description: "Icon sets power by lsicon",
-    homepage: `https://www.lsicon.com/${npm}`,
+    homepage,
     repository: {
       type: "git",
       url: `git+ssh://git@github.com:${owner}/${repo}.git`,
